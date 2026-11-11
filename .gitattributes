@@ -1,0 +1,8 @@
+# Shell scripts and Dockerfiles run inside Linux containers or bash: always
+# LF, even when Git for Windows checks out with core.autocrlf=true
+# (a CRLF script fails with "$'\r': command not found").
+*.sh text eol=lf
+/mvnw text eol=lf
+*.Dockerfile text eol=lf
+*.dockerignore text eol=lf
+*.cmd text eol=crlf

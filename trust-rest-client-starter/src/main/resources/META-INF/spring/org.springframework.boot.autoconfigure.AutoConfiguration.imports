@@ -1,0 +1,2 @@
+com.trust.restclient.ServiceClientAutoConfiguration
+com.trust.web.correlation.CorrelationIdFilterAutoConfiguration

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.trust</groupId>
+		<artifactId>trust-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../trust-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>trust-security-test</artifactId>
+	<name>trust-security-test</name>
+	<description>Test support for fine-grained authorization (@RequiresPermission) in Trust applications, with no external decision point.</description>
+	<dependencies>
+		<!-- Nullness annotations used in this module's public API (@NullMarked packages). -->
+		<dependency>
+			<groupId>org.jspecify</groupId>
+			<artifactId>jspecify</artifactId>
+		</dependency>
+
+		<!-- API publique reprise par ce module: PermissionChecker/AuthorizationDecisionClient. -->
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-core</artifactId>
+		</dependency>
+
+		<!-- @TestConfiguration / @Bean: used by applications with <scope>test</scope>. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

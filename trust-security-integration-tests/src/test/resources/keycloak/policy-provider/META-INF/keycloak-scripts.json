@@ -1,0 +1,9 @@
+{
+  "policies": [
+    {
+      "name": "Tenant Context Policy",
+      "fileName": "tenant-context-policy.js",
+      "description": "Grants access only when the caller's tenant context claim (Trust claim_token) equals TENANT_A"
+    }
+  ]
+}

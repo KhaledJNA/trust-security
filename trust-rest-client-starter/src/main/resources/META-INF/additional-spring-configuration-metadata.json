@@ -1,0 +1,11 @@
+{
+  "properties": [
+    {
+      "name": "trust.rest-client.retry.retryable-status-codes",
+      "type": "java.util.Set<java.lang.Integer>",
+      "description": "HTTP response status codes considered transient and therefore worth retrying. Optional: defaults to 502, 503 and 504 - the statuses that typically indicate a temporary unavailability of the target service rather than a client-side or application-level error.",
+      "sourceType": "com.trust.restclient.ServiceClientProperties$RetryProperties",
+      "defaultValue": [502, 503, 504]
+    }
+  ]
+}

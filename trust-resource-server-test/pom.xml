@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.trust</groupId>
+		<artifactId>trust-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../trust-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>trust-resource-server-test</artifactId>
+	<name>trust-resource-server-test</name>
+	<description>Test support for Trust resource servers: a test JWT claim set run through the application's real authorities converter.</description>
+	<dependencies>
+		<!-- Nullness annotations used in this module's public API (@NullMarked packages). -->
+		<dependency>
+			<groupId>org.jspecify</groupId>
+			<artifactId>jspecify</artifactId>
+		</dependency>
+
+		<!-- Jwt, JwtAuthenticationConverter, JwtAuthenticationToken: exactly what
+		     the resource server starter's own filter chain builds in production. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+		</dependency>
+		<!-- Jwt / JwtClaimNames live here, not in oauth2-resource-server itself. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
+		<!-- @WithSecurityContext / WithSecurityContextFactory: this module's own
+		     main code (@WithTrustJwt) is meta-annotated with it, so it must be a
+		     compile-scope dependency, not test-scope. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+		</dependency>
+
+		<!-- Reading claims from a JSON fixture file. -->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Test-scope only: builds a realistic internal "little application" for
+		     this module's own tests, wired with the actual production
+		     auto-configuration - not a hand-rolled fake converter - so
+		     @WithTrustJwt is verified against the real thing. Not needed by
+		     consumers, who already bring their own starter. -->
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-resource-server-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

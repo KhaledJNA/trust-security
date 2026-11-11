@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Builds the whole Trust security suite:
+      ./mvnw install                         every library, with its tests
+      ./mvnw install -Pintegration-tests     plus the certification suite
+                                             against a real Keycloak (Docker)
+  One version for every module; to change it:
+      ./mvnw versions:set -DnewVersion=0.2.0 -DprocessAllModules -DgenerateBackupPoms=false
+  This aggregator is never published; trust-dependencies (BOM) and
+  trust-parent (build parent) are.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.trust</groupId>
+	<artifactId>trust-security-build</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>trust-security-build</name>
+
+	<properties>
+		<maven.deploy.skip>true</maven.deploy.skip>
+	</properties>
+
+	<modules>
+		<module>trust-dependencies</module>
+		<module>trust-parent</module>
+		<module>trust-web-core</module>
+		<module>trust-security-core</module>
+		<module>trust-security-web</module>
+		<module>trust-security-test</module>
+		<module>trust-security-oauth2-client-starter</module>
+		<module>trust-oauth2-client-test</module>
+		<module>trust-security-resource-server-starter</module>
+		<module>trust-resource-server-test</module>
+		<module>trust-rest-client-starter</module>
+		<module>trust-security-keycloak-authorization-starter</module>
+	</modules>
+
+	<profiles>
+		<profile>
+			<id>integration-tests</id>
+			<modules>
+				<module>trust-security-integration-tests</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

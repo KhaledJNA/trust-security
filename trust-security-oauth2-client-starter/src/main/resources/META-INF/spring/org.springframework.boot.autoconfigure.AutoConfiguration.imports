@@ -1,0 +1,2 @@
+com.trust.security.client.OAuth2ClientAutoConfiguration
+com.trust.web.correlation.CorrelationIdFilterAutoConfiguration

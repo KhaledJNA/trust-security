@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.trust</groupId>
+		<artifactId>trust-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../trust-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>trust-security-integration-tests</artifactId>
+	<name>trust-security-integration-tests</name>
+	<description>Certification of the Trust libraries against a real provider (Keycloak, through Testcontainers) - not a library for applications.</description>
+	<dependencies>
+		<!-- Trust artifacts, consumed exactly as a real application would. -->
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-resource-server-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-keycloak-authorization-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-oauth2-client-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-oauth2-resource-server</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-oauth2-client</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Real Keycloak container + realm import + admin client. Built against
+		     the Testcontainers version Spring Boot manages (2.x, which supports
+		     Docker 29+): keep the two in step when upgrading Spring Boot. -->
+		<dependency>
+			<groupId>com.github.dasniko</groupId>
+			<artifactId>testcontainers-keycloak</artifactId>
+			<version>4.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

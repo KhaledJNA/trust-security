@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.trust</groupId>
+		<artifactId>trust-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../trust-parent/pom.xml</relativePath>
+	</parent>
+	<artifactId>trust-oauth2-client-test</artifactId>
+	<name>trust-oauth2-client-test</name>
+	<description>Test support for Trust BFFs: a test OIDC identity run through the oauth2-client starter's real authorities mapper, with ACR/step-up.</description>
+	<dependencies>
+		<!-- Nullness annotations used in this module's public API (@NullMarked packages). -->
+		<dependency>
+			<groupId>org.jspecify</groupId>
+			<artifactId>jspecify</artifactId>
+		</dependency>
+
+		<!-- OidcIdToken, OidcUser, DefaultOidcUser, OidcUserAuthority, OAuth2UserAuthority. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-core</artifactId>
+		</dependency>
+		<!-- OAuth2AuthenticationToken, OAuth2AuthorizedClient. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-client</artifactId>
+		</dependency>
+
+		<!-- @WithSecurityContext / WithSecurityContextFactory: this module's own
+		     main code (@WithTrustOidcUser) is meta-annotated with it, so it must
+		     be a compile-scope dependency, not test-scope. -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+		</dependency>
+
+		<!-- Reading claims from a JSON fixture file. -->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Test-scope only: builds a realistic internal "little application" for
+		     this module's own tests, wired with the actual production
+		     auto-configuration - not a hand-rolled fake mapper. Not needed by
+		     consumers, who already bring their own starter. -->
+		<dependency>
+			<groupId>com.trust</groupId>
+			<artifactId>trust-security-oauth2-client-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+</project>

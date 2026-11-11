@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Trust bill of materials: one version for every Trust library. An
+  application imports it once and declares the starters without a version:
+
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>com.trust</groupId>
+            <artifactId>trust-dependencies</artifactId>
+            <version>...</version>
+            <type>pom</type>
+            <scope>import</scope>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+
+  Only Trust artifacts are listed: Spring Boot stays the application's
+  choice (its parent or its own BOM). No <parent> on purpose: an imported
+  BOM brings its parent's dependency management with it.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.trust</groupId>
+	<artifactId>trust-dependencies</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>trust-dependencies</name>
+	<description>Trust security libraries: bill of materials.</description>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-web-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-security-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-security-web</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-security-oauth2-client-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-security-resource-server-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-security-keycloak-authorization-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-rest-client-starter</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-security-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-oauth2-client-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.trust</groupId>
+				<artifactId>trust-resource-server-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

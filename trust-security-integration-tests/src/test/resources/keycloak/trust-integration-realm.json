@@ -1,0 +1,144 @@
+{
+  "realm": "trust-integration",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "roles": {
+    "realm": [
+      { "name": "TRUST_TEST_USER", "description": "Generic certification role - standard access" },
+      { "name": "TRUST_TEST_ADMIN", "description": "Generic certification role - elevated access" }
+    ],
+    "client": {
+      "trust-it-api": [
+        { "name": "TRUST_TEST_READER", "description": "Generic certification client role - resource_access mapping" }
+      ]
+    }
+  },
+  "users": [
+    {
+      "username": "trust.user",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Trust",
+      "lastName": "User",
+      "email": "trust.user@trust-integration.test",
+      "credentials": [
+        { "type": "password", "value": "trust-user-password", "temporary": false }
+      ],
+      "realmRoles": ["TRUST_TEST_USER"],
+      "clientRoles": {
+        "trust-it-api": ["TRUST_TEST_READER"]
+      }
+    },
+    {
+      "username": "trust.admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Trust",
+      "lastName": "Admin",
+      "email": "trust.admin@trust-integration.test",
+      "credentials": [
+        { "type": "password", "value": "trust-admin-password", "temporary": false }
+      ],
+      "realmRoles": ["TRUST_TEST_ADMIN"]
+    },
+    {
+      "username": "trust.denied",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Trust",
+      "lastName": "Denied",
+      "email": "trust.denied@trust-integration.test",
+      "credentials": [
+        { "type": "password", "value": "trust-denied-password", "temporary": false }
+      ],
+      "realmRoles": []
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "trust-it-bff",
+      "name": "Trust certification BFF / token issuer client",
+      "enabled": true,
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "trust-it-bff-secret",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "redirectUris": ["http://localhost/*"],
+      "webOrigins": [],
+      "fullScopeAllowed": true,
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": ["web-origins", "acr", "roles", "profile", "basic", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "organization", "microprofile-jwt"],
+      "protocolMappers": [
+        {
+          "name": "realm-roles-claim",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "config": {
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "introspection.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "trust-it-api",
+      "name": "Trust certification Resource Server client (plain JWT, no authorization services)",
+      "description": "Exists only so Keycloak can validate it as a real audience and hold TRUST_TEST_READER; never used for login.",
+      "enabled": true,
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "trust-it-api-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "bearerOnly": false,
+      "fullScopeAllowed": true
+    },
+    {
+      "clientId": "trust-it-api-downstream",
+      "name": "Trust certification downstream Resource Server client (token relay target)",
+      "description": "Exists only so Keycloak can validate it as a real audience; never used for login.",
+      "enabled": true,
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "trust-it-api-downstream-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "authorizationServicesEnabled": false,
+      "bearerOnly": false,
+      "fullScopeAllowed": true
+    },
+    {
+      "clientId": "trust-it-authorization",
+      "name": "Trust certification Authorization Services Resource Server client",
+      "description": "Exists only so Keycloak can resolve it as the UMA audience/resource server; never used for login.",
+      "enabled": true,
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "trust-it-authorization-secret",
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "bearerOnly": false,
+      "fullScopeAllowed": true
+    }
+  ]
+}

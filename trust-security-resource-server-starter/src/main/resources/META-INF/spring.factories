@@ -1,0 +1,5 @@
+org.springframework.boot.diagnostics.FailureAnalyzer=\
+com.trust.security.resourceserver.multichain.MultiChainConfigurationFailureAnalyzer,\
+com.trust.security.resourceserver.tokenformat.MissingTokenFormatFailureAnalyzer,\
+com.trust.security.resourceserver.tokenformat.AmbiguousTokenFormatFailureAnalyzer,\
+com.trust.security.resourceserver.tokenformat.ConflictingResourceServerModeFailureAnalyzer

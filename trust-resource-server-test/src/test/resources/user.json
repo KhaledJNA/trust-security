@@ -1,0 +1,8 @@
+{
+  "sub": "user-123",
+  "preferred_username": "sample-user",
+  "email": "user@example.test",
+  "permissions": {
+    "roles": ["USER"]
+  }
+}

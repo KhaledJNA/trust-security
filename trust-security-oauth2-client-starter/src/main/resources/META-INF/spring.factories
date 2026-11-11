@@ -1,0 +1,3 @@
+org.springframework.boot.diagnostics.FailureAnalyzer=\
+com.trust.security.client.multichain.MultiChainConfigurationFailureAnalyzer,\
+com.trust.security.client.tenant.RegistrationIdResolutionConfigurationFailureAnalyzer

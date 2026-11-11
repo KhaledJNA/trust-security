@@ -1,0 +1,68 @@
+# Builds and tests every module on a clean machine at each push and pull
+# request:
+#   - Linux: every module, plus the certification suite against a real
+#     Keycloak (Testcontainers, Docker is available on GitHub's Linux runners);
+#   - Windows: every module, with the Windows Maven wrapper (mvnw.cmd).
+name: build
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux:
+    name: Linux (with Keycloak integration tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - name: Cache the Maven distribution
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/wrapper
+          key: maven-wrapper-${{ runner.os }}-${{ hashFiles('.mvn/wrapper/maven-wrapper.properties') }}
+      # Maven Central now and then refuses a download from a shared runner.
+      - name: Download Maven
+        run: for i in 1 2 3 4 5; do ./mvnw -B --version && exit 0; sleep $((i * 10)); done; exit 1
+      - name: Build and test
+        run: ./mvnw -B -ntp install -Pintegration-tests
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - name: Cache the Maven distribution
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/wrapper
+          key: maven-wrapper-${{ runner.os }}-${{ hashFiles('.mvn/wrapper/maven-wrapper.properties') }}
+      # Maven Central now and then refuses a download from a shared runner.
+      - name: Download Maven
+        shell: pwsh
+        run: |
+          for ($i = 1; $i -le 5; $i++) { .\mvnw.cmd -B --version; if ($LASTEXITCODE -eq 0) { exit 0 }; Start-Sleep -Seconds (10 * $i) }
+          exit 1
+      - name: Build and test
+        shell: cmd
+        run: mvnw.cmd -B -ntp install
